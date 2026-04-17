@@ -17,13 +17,10 @@ async function syncPrizes() {
           gachaRepository.createPrize(p.name, p.quota, p.chance)
         )
       );
-      console.log('Sinkronisasi hadiah berhasil (Database di-seed).');
+      console.log('Sinkronisasi hadiah berhasil.');
     }
   } catch (error) {
-    console.error(
-      'CRITICAL ERROR: Gagal sinkronisasi hadiah saat startup:',
-      error
-    );
+    console.error('CRITICAL ERROR: Gagal sinkronisasi hadiah:', error);
   }
 }
 
@@ -49,28 +46,26 @@ async function playGacha(userId) {
     return { error: 'LIMIT_EXCEEDED' };
   }
 
-  // 2. Ambil daftar hadiah yang masih tersedia (berdasarkan kuota > 0)
+  // 2. Ambil daftar hadiah yang masih tersedia
   const availablePrizes = await gachaRepository.getAvailablePrizes();
 
   let wonPrize = null;
 
-  // 3. Logika Gacha: Algoritma Peluang Kumulatif (Weighted Random)
+  // 3. Logika Gacha: Algoritma Peluang Kumulatif
   if (availablePrizes.length > 0) {
     const rand = Math.random();
     let cumulativeChance = 0;
     let selectedPrizeToWin = null;
 
-    // Gunakan for-loop standar (menghindari error for...of dan no-await-in-loop)
     for (let i = 0; i < availablePrizes.length; i += 1) {
       cumulativeChance += availablePrizes[i].chance;
 
       if (rand < cumulativeChance) {
         selectedPrizeToWin = availablePrizes[i];
-        break; // Hentikan pencarian jika hadiah sudah ditentukan
+        break;
       }
     }
 
-    // Lakukan pemotongan kuota ke database (TIDAK di dalam loop)
     if (selectedPrizeToWin) {
       const updatedPrize = await gachaRepository.decreasePrizeQuota(
         selectedPrizeToWin.id
@@ -82,7 +77,7 @@ async function playGacha(userId) {
     }
   }
 
-  // 4. Catat histori menggunakan .id
+  // 4. Catat histori hadiah
   const prizeId = wonPrize ? wonPrize.id : null;
   await gachaRepository.recordGachaHistory(userId, prizeId);
 
