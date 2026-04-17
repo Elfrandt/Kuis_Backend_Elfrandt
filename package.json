@@ -1,7 +1,7 @@
 {
-  "name": "backend-programming-template-2025",
+  "name": "Kuis_Backend_Elfrandt.git",
   "version": "1.0.0",
-  "description": "",
+  "description": "1. Fork and clone this repository to your local computer.\r 2. Open the project using VS Code.\r 3. Install the recommended VS Code extensions: `ESLint` and `Prettier`.\r 4. Copy and rename `.env.example` to `.env`. Open `.env` and change the database connection string.\r 5. Run `npm install` to install the project dependencies.\r 6. Run `npm run dev` to start the dev server.\r 7. Test the endpoints in the API client app.",
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon ./src/index.js",
@@ -14,11 +14,11 @@
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "express-async-errors": "^3.1.1",
     "method-override": "^3.0.0",
-    "mongoose": "^8.12.2",
+    "mongoose": "^8.23.0",
     "pino": "^9.6.0",
     "pino-http": "^10.4.0"
   },
@@ -32,5 +32,15 @@
     "nodemon": "^3.1.9",
     "pino-pretty": "^13.0.0",
     "prettier": "^3.5.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elfrandt/Kuis_Backend_Elfrandt.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Elfrandt/Kuis_Backend_Elfrandt.git/issues"
+  },
+  "homepage": "https://github.com/Elfrandt/Kuis_Backend_Elfrandt.git#readme"
 }
