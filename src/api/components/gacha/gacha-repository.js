@@ -1,6 +1,5 @@
 const { Prizes, GachaHistories } = require('../../../models');
 
-// Menghitung jumlah gacha user hari ini
 async function countUserGachaToday(userId) {
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);

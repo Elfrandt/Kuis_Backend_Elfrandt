@@ -6,7 +6,6 @@ async function playGacha(request, response, next) {
   try {
     const userId = request.body.user_id;
 
-    // Validasi input
     if (!userId) {
       throw errorResponder(errorTypes.VALIDATION_ERROR, 'User ID is required');
     }
@@ -19,7 +18,6 @@ async function playGacha(request, response, next) {
 
     const result = await gachaService.playGacha(userId);
 
-    // Validasi limit harian
     if (result.error === 'LIMIT_EXCEEDED') {
       throw errorResponder(
         errorTypes.UNPROCESSABLE_ENTITY,
@@ -27,7 +25,6 @@ async function playGacha(request, response, next) {
       );
     }
 
-    // Response gacha simpel
     return response.status(200).json({
       message: result.prize
         ? 'Selamat, Lu menang gacha-nya!.'
@@ -52,7 +49,7 @@ async function getUserHistory(request, response, next) {
 
     const history = await gachaService.getUserHistory(userId);
 
-    // FORMATTING: Merapikan output histori
+    // Merapikan output histori biar ga berantakan
     const formattedHistory = history.map((record) => ({
       mainTanggal: record.createdAt,
       hasil: record.prizeId ? 'Menang' : 'Zonk',

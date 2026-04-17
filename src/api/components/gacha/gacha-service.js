@@ -5,7 +5,7 @@ const PRIZE_LIST = [
   { name: 'Smartphone X', quota: 5, chance: 0.005 },
   { name: 'Smartwatch Y', quota: 10, chance: 0.006 },
   { name: 'Voucher Rp100.000', quota: 100, chance: 0.1 },
-  { name: 'Pulsa Rp50.000', quota: 500, chance: 0.4 },
+  { name: 'Pulsa Rp50.000', quota: 500, chance: 0.5 },
 ];
 
 async function syncPrizes() {
@@ -26,14 +26,12 @@ async function syncPrizes() {
 
 syncPrizes();
 
-// Fungsi bantuan untuk menyamarkan nama SECARA ACAK (Sesuai soal bonus point 3)
 function maskName(name) {
   if (!name) return '';
   return name
     .split('')
     .map((char) => {
       if (char === ' ') return ' ';
-      // 50% peluang karakter diubah menjadi '*'
       return Math.random() > 0.5 ? '*' : char;
     })
     .join('');
@@ -77,7 +75,7 @@ async function playGacha(userId) {
     }
   }
 
-  // 4. Catat histori hadiah
+  // 4. Mencatat histori hadiah
   const prizeId = wonPrize ? wonPrize.id : null;
   await gachaRepository.recordGachaHistory(userId, prizeId);
 

@@ -12,9 +12,9 @@ module.exports = (app) => {
   // Bonus Point 1: Histori gacha user beserta hadiah
   route.get('/history/:userId', gachaController.getUserHistory);
 
-  // Bonus Point 2: Daftar hadiah dan sisa kuota
+  // Bonus Point 2: Daftar hadiah dan sisa kuota hadiah
   route.get('/prizes', gachaController.getPrizeQuotas);
 
-  // Bonus Point 3: Daftar pemenang dengan nama yang disamarkan
+  // Bonus Point 3: Daftar pemenang pake nama yang disamarkan
   route.get('/winners', gachaController.getWinners);
 };
